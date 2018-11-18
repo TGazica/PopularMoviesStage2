@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PopularMovies</string>
+    <string name="movie_poster_description">Movie poster</string>
+    <string name="minutes">min</string>
+    <string name="on_no_internet_access_message">No internet access</string>
+    <string name="on_response_failure_text">Problem loading data</string>
+</resources>
