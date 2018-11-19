@@ -4,4 +4,6 @@
     <string name="minutes">min</string>
     <string name="on_no_internet_access_message">No internet access</string>
     <string name="on_response_failure_text">Problem loading data</string>
+    <string name="menu_item_popular_title">Popular</string>
+    <string name="menu_item_show_top_rated_title">Show top rated</string>
 </resources>

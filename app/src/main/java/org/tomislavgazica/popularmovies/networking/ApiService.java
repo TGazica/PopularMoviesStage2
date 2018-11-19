@@ -13,6 +13,9 @@ public interface ApiService {
     @GET("popular")
     Call<MoviesResponse> getPopularMoviesFromDatabase(@Query("api_key") String apiKey);
 
+    @GET("top_rated")
+    Call<MoviesResponse> getTopMoviesFromDatabase(@Query("api_key") String apiKey);
+
     @GET("{id}")
     Call<Movie> getMovieDetailsFromDatabase(@Path(value = "id", encoded = true) int movieId, @Query("api_key") String apyKey);
 

@@ -20,7 +20,7 @@ import org.tomislavgazica.popularmovies.util.Constants;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailsActivity extends AppCompatActivity implements DetailsContract.View{
+public class DetailsActivity extends AppCompatActivity implements DetailsContract.View {
 
     @BindView(R.id.tv_details_movie_title)
     TextView tvDetailsMovieTitle;
@@ -32,6 +32,8 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
     TextView tvDetailMovieLength;
     @BindView(R.id.tv_detail_movie_score)
     TextView tvDetailMovieScore;
+    @BindView(R.id.tv_detail_movie_synopsis)
+    TextView tvDetailMovieSynopsis;
 
     private int movieId;
     private DetailsContract.Presenter presenter;
@@ -46,7 +48,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
         presenter.setView(this);
 
         Intent intent = getIntent();
-        if (intent.hasExtra(MainActivity.MOVIE_KEY)){
+        if (intent.hasExtra(MainActivity.MOVIE_KEY)) {
             movieId = intent.getIntExtra(MainActivity.MOVIE_KEY, 0);
         }
 
@@ -57,7 +59,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
     @Override
     public void setUIData(Movie movie) {
         Glide.with(getApplicationContext())
-                .load(Constants.IMAGE_URL + "w185/" + movie.getPoster_path())
+                .load(Constants.IMAGE_URL + Constants.IMAGE_SIZE + movie.getPoster_path())
                 .into(ivDetailMoviePoster);
         tvDetailsMovieTitle.setText(movie.getTitle());
         tvDetailMovieReleaseYear.setText(movie.getRelease_date());
@@ -65,6 +67,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
         tvDetailMovieLength.setText(length);
         String score = movie.getVote_average() + "/10";
         tvDetailMovieScore.setText(score);
+        tvDetailMovieSynopsis.setText(movie.getOverview());
     }
 
     @Override

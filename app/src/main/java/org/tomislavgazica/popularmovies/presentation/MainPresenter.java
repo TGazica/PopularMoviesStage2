@@ -27,9 +27,18 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void onMovieListRequested(Context context) {
+    public void onPopularMoviesListRequested(Context context) {
         if (NetworkUtil.isThereInternetConnection(context)) {
             apiInteractor.getMoviesFromDatabase(getMoviesCallback(), Constants.API_KEY);
+        }else {
+            view.onNoInternetAccess();
+        }
+    }
+
+    @Override
+    public void onTopRatedMoviesListRequested(Context context) {
+        if (NetworkUtil.isThereInternetConnection(context)) {
+            apiInteractor.getTopMoviesFromDatabase(getMoviesCallback(), Constants.API_KEY);
         }else {
             view.onNoInternetAccess();
         }

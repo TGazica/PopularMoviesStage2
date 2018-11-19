@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import org.tomislavgazica.popularmovies.App;
@@ -45,7 +47,31 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         rvMainMoviesList.setLayoutManager(new GridLayoutManager(this, 2));
         rvMainMoviesList.setAdapter(adapter);
 
-        presenter.onMovieListRequested(getApplicationContext());
+        presenter.onPopularMoviesListRequested(getApplicationContext());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.menu_item_show_popular:
+                presenter.onPopularMoviesListRequested(getApplicationContext());
+                break;
+            case R.id.menu_item_show_top_rated:
+                presenter.onTopRatedMoviesListRequested(getApplicationContext());
+                break;
+            default:
+                presenter.onPopularMoviesListRequested(getApplicationContext());
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

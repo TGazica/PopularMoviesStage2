@@ -20,6 +20,11 @@ public class ApiInteractorImpl implements ApiInteractor{
     }
 
     @Override
+    public void getTopMoviesFromDatabase(Callback<MoviesResponse> callback, String apiKey) {
+        apiService.getTopMoviesFromDatabase(apiKey).enqueue(callback);
+    }
+
+    @Override
     public void getMovieDetailsFromDatabase(Callback<Movie> callback, int movieId, String apyKey) {
         apiService.getMovieDetailsFromDatabase(movieId, apyKey).enqueue(callback);
     }

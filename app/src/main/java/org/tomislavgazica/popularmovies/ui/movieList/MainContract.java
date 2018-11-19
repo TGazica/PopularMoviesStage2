@@ -22,7 +22,9 @@ public interface MainContract {
 
         void setView(MainContract.View view);
 
-        void onMovieListRequested(Context context);
+        void onPopularMoviesListRequested(Context context);
+
+        void onTopRatedMoviesListRequested(Context context);
 
     }
 
