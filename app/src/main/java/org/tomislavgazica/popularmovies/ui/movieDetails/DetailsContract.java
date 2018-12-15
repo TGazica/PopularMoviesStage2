@@ -3,12 +3,20 @@ package org.tomislavgazica.popularmovies.ui.movieDetails;
 import android.content.Context;
 
 import org.tomislavgazica.popularmovies.model.Movie;
+import org.tomislavgazica.popularmovies.model.Review;
+import org.tomislavgazica.popularmovies.model.Trailer;
+
+import java.util.List;
 
 public interface DetailsContract {
 
     interface View{
 
-        void setUIData(Movie movie);
+        void setMovieData(Movie movie);
+
+        void setTrailerList(List<Trailer> trailerList);
+
+        void setReviewList(List<Review> reviewList);
 
         void onNoInternetAccess();
 
@@ -21,6 +29,10 @@ public interface DetailsContract {
         void setView(DetailsContract.View view);
 
         void onMovieDataFromDatabaseCalled(int id, Context context);
+
+        void onTrailersFormDatabaseCalled(int id, Context context);
+
+        void onReviewsFromDatabaseCalled(int id, Context context);
 
     }
 

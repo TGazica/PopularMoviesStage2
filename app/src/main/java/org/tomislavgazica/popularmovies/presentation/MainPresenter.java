@@ -2,6 +2,7 @@ package org.tomislavgazica.popularmovies.presentation;
 
 import android.content.Context;
 
+import org.tomislavgazica.popularmovies.BuildConfig;
 import org.tomislavgazica.popularmovies.interactor.ApiInteractor;
 import org.tomislavgazica.popularmovies.model.MoviesResponse;
 import org.tomislavgazica.popularmovies.ui.movieList.MainContract;
@@ -16,9 +17,11 @@ public class MainPresenter implements MainContract.Presenter {
 
     private ApiInteractor apiInteractor;
     private MainContract.View view;
+    private String apyKey;
 
     public MainPresenter(ApiInteractor apiInteractor) {
         this.apiInteractor = apiInteractor;
+        apyKey = BuildConfig.API_KEY;
     }
 
     @Override
@@ -29,7 +32,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onPopularMoviesListRequested(Context context) {
         if (NetworkUtil.isThereInternetConnection(context)) {
-            apiInteractor.getMoviesFromDatabase(getMoviesCallback(), Constants.API_KEY);
+            apiInteractor.getMoviesFromDatabase(getMoviesCallback(), apyKey);
         }else {
             view.onNoInternetAccess();
         }
@@ -38,7 +41,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onTopRatedMoviesListRequested(Context context) {
         if (NetworkUtil.isThereInternetConnection(context)) {
-            apiInteractor.getTopMoviesFromDatabase(getMoviesCallback(), Constants.API_KEY);
+            apiInteractor.getTopMoviesFromDatabase(getMoviesCallback(), apyKey);
         }else {
             view.onNoInternetAccess();
         }

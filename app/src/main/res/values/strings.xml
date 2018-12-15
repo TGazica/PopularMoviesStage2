@@ -5,5 +5,9 @@
     <string name="on_no_internet_access_message">No internet access</string>
     <string name="on_response_failure_text">Problem loading data</string>
     <string name="menu_item_popular_title">Popular</string>
-    <string name="menu_item_show_top_rated_title">Show top rated</string>
+    <string name="menu_item_show_top_rated_title">Top rated</string>
+    <string name="menu_item_show_favorites_title">Favorites</string>
+    <string name="trailers_title">Trailers</string>
+    <string name="trailer_title">Trailer</string>
+    <string name="reviews_title">Reviews</string>
 </resources>
