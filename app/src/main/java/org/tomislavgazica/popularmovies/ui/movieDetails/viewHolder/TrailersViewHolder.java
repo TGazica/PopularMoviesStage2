@@ -1,13 +1,13 @@
 package org.tomislavgazica.popularmovies.ui.movieDetails.viewHolder;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import org.tomislavgazica.popularmovies.R;
 import org.tomislavgazica.popularmovies.model.Trailer;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

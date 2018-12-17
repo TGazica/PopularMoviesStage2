@@ -1,18 +1,18 @@
 package org.tomislavgazica.popularmovies.ui.movieDetails.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.tomislavgazica.popularmovies.R;
 import org.tomislavgazica.popularmovies.model.Review;
-import org.tomislavgazica.popularmovies.ui.movieDetails.DetailsContract;
 import org.tomislavgazica.popularmovies.ui.movieDetails.viewHolder.ReviewViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
 

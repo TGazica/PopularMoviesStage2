@@ -1,7 +1,5 @@
 package org.tomislavgazica.popularmovies.ui.movieList.viewHolder;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -12,6 +10,8 @@ import org.tomislavgazica.popularmovies.model.Movie;
 import org.tomislavgazica.popularmovies.ui.movieList.listener.OnMovieClickListener;
 import org.tomislavgazica.popularmovies.util.Constants;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
