@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -26,17 +26,16 @@
             android:maxLines="3"
             android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="@id/iv_detail_movie_title_holder"
-            app:layout_constraintEnd_toStartOf="@id/iv_detail_movie_favorite"
+            app:layout_constraintEnd_toStartOf="@id/rb_detail_movie_favorite"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/iv_detail_movie_title_holder"
             app:layout_constraintTop_toTopOf="@id/iv_detail_movie_title_holder" />
 
-        <ImageView
-            android:id="@+id/iv_detail_movie_favorite"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <RadioButton
+            android:id="@+id/rb_detail_movie_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_baseline_star_border_24px"
             app:layout_constraintBottom_toBottomOf="@id/iv_detail_movie_title_holder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_detail_movie_title_holder" />
@@ -114,7 +113,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_divider_trailer" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_detail_movie_trailers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -131,12 +130,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_detail_movie_trailers" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_detail_movie_reviews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@id/tv_details_movie_trailers_reviews" />
 
-    </androidx.constraintlayout.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

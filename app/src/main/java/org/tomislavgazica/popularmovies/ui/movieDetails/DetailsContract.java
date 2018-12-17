@@ -12,7 +12,7 @@ public interface DetailsContract {
 
     interface View{
 
-        void setMovieData(Movie movie);
+        void setMovieData(Movie movie, boolean isFavorite);
 
         void setTrailerList(List<Trailer> trailerList);
 
@@ -33,6 +33,8 @@ public interface DetailsContract {
         void onTrailersFormDatabaseCalled(int id, Context context);
 
         void onReviewsFromDatabaseCalled(int id, Context context);
+
+        void onMovieFavoriteStateChanged();
 
     }
 

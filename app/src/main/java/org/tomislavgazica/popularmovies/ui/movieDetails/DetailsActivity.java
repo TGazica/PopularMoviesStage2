@@ -53,8 +53,6 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
     @BindView(R.id.rv_detail_movie_reviews)
     RecyclerView rvDetailMovieReviews;
 
-    private int movieId;
-    private Movie movie;
     private DetailsContract.Presenter presenter;
     private TrailersAdapter trailersAdapter;
     private ReviewsAdapter reviewsAdapter;
@@ -78,23 +76,22 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
         rvDetailMovieTrailers.setAdapter(trailersAdapter);
         rvDetailMovieReviews.setAdapter(reviewsAdapter);
 
-        presenter = new DetailPresenter(App.getApiInteractor());
+        presenter = new DetailPresenter(App.getApiInteractor(), this);
         presenter.setView(this);
 
         Intent intent = getIntent();
         if (intent.hasExtra(MainActivity.MOVIE_KEY)) {
-            movieId = intent.getIntExtra(MainActivity.MOVIE_KEY, 0);
+            int movieId = intent.getIntExtra(MainActivity.MOVIE_KEY, 0);
+            presenter.onMovieDataFromDatabaseCalled(movieId, this);
+            presenter.onTrailersFormDatabaseCalled(movieId, this);
+            presenter.onReviewsFromDatabaseCalled(movieId, this);
         }
-
-        presenter.onMovieDataFromDatabaseCalled(movieId, this);
-        presenter.onTrailersFormDatabaseCalled(movieId, this);
-        presenter.onReviewsFromDatabaseCalled(movieId, this);
-
     }
 
     @OnClick(R.id.rb_detail_movie_favorite)
-    public void onFavoriteClicked(){
+    public void onFavoriteClicked() {
         presenter.onMovieFavoriteStateChanged();
+        rbDetailMovieFavorite.setChecked(!rbDetailMovieFavorite.isChecked());
     }
 
     @Override

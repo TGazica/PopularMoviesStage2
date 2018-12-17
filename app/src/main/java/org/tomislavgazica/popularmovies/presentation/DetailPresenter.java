@@ -3,6 +3,7 @@ package org.tomislavgazica.popularmovies.presentation;
 import android.content.Context;
 
 import org.tomislavgazica.popularmovies.BuildConfig;
+import org.tomislavgazica.popularmovies.database.FavoriteMoviesDatabase;
 import org.tomislavgazica.popularmovies.interactor.ApiInteractor;
 import org.tomislavgazica.popularmovies.model.Movie;
 import org.tomislavgazica.popularmovies.model.ReviewsResponse;
@@ -19,10 +20,14 @@ public class DetailPresenter implements DetailsContract.Presenter {
     private DetailsContract.View view;
     private ApiInteractor apiInteractor;
     private String apyKey;
+    private FavoriteMoviesDatabase database;
+    private Movie movie;
+    private boolean isMovieFavorite = false;
 
-    public DetailPresenter(ApiInteractor apiInteractor) {
+    public DetailPresenter(ApiInteractor apiInteractor, Context context) {
         this.apiInteractor = apiInteractor;
         apyKey = BuildConfig.API_KEY;
+        database = FavoriteMoviesDatabase.getInstance(context);
     }
 
     @Override
@@ -32,9 +37,9 @@ public class DetailPresenter implements DetailsContract.Presenter {
 
     @Override
     public void onMovieDataFromDatabaseCalled(int id, Context context) {
-        if (NetworkUtil.isThereInternetConnection(context)) {
+        if (!getMovieFromDatabaseFavorites(id) && NetworkUtil.isThereInternetConnection(context)) {
             apiInteractor.getMovieDetailsFromDatabase(getMovieCallback(), id, apyKey);
-        }else {
+        } else {
             view.onNoInternetAccess();
         }
     }
@@ -43,8 +48,9 @@ public class DetailPresenter implements DetailsContract.Presenter {
         return new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
-                if (response.body() != null){
-                    view.setMovieData(response.body());
+                if (response.body() != null) {
+                    movie = response.body();
+                    view.setMovieData(response.body(), false);
                 }
             }
 
@@ -59,7 +65,7 @@ public class DetailPresenter implements DetailsContract.Presenter {
     public void onTrailersFormDatabaseCalled(int id, Context context) {
         if (NetworkUtil.isThereInternetConnection(context)) {
             apiInteractor.getTrailersForMovie(getTrailersCallback(), id, apyKey);
-        }else {
+        } else {
             view.onNoInternetAccess();
         }
     }
@@ -68,14 +74,14 @@ public class DetailPresenter implements DetailsContract.Presenter {
         return new Callback<TrailersResponse>() {
             @Override
             public void onResponse(Call<TrailersResponse> call, Response<TrailersResponse> response) {
-                if (response.body() != null){
+                if (response.body() != null) {
                     view.setTrailerList(response.body().getTrailers());
                 }
             }
 
             @Override
             public void onFailure(Call<TrailersResponse> call, Throwable t) {
-
+                view.onResponseFailure();
             }
         };
     }
@@ -84,7 +90,7 @@ public class DetailPresenter implements DetailsContract.Presenter {
     public void onReviewsFromDatabaseCalled(int id, Context context) {
         if (NetworkUtil.isThereInternetConnection(context)) {
             apiInteractor.getReviewsForMovie(getReviewsCallback(), id, apyKey);
-        }else {
+        } else {
             view.onNoInternetAccess();
         }
     }
@@ -93,15 +99,36 @@ public class DetailPresenter implements DetailsContract.Presenter {
         return new Callback<ReviewsResponse>() {
             @Override
             public void onResponse(Call<ReviewsResponse> call, Response<ReviewsResponse> response) {
-                if (response.body() != null){
+                if (response.body() != null) {
                     view.setReviewList(response.body().getReviews());
                 }
             }
 
             @Override
             public void onFailure(Call<ReviewsResponse> call, Throwable t) {
-
+                view.onResponseFailure();
             }
         };
+    }
+
+    private boolean getMovieFromDatabaseFavorites(int movieId) {
+        movie = database.getFavoriteMoviesDao().loadMovieFromDatabase(movieId);
+        if (movie != null) {
+            isMovieFavorite = true;
+            view.setMovieData(movie, isMovieFavorite);
+        } else {
+            isMovieFavorite = false;
+
+        }
+        return isMovieFavorite;
+    }
+
+    @Override
+    public void onMovieFavoriteStateChanged() {
+        if (isMovieFavorite){
+            database.getFavoriteMoviesDao().deleteFavoriteMovie(movie);
+        }else {
+            database.getFavoriteMoviesDao().insetFavoriteMovie(movie);
+        }
     }
 }
