@@ -1,14 +1,15 @@
 package org.tomislavgazica.popularmovies.database;
 
+import android.arch.persistence.room.Database;
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import org.tomislavgazica.popularmovies.model.Movie;
 import org.tomislavgazica.popularmovies.model.Review;
 import org.tomislavgazica.popularmovies.model.Trailer;
 
-import androidx.room.Database;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
+
 
 @Database(entities = {Movie.class, Trailer.class, Review.class}, version = 1, exportSchema = false)
 public abstract class FavoriteMoviesDatabase extends RoomDatabase {

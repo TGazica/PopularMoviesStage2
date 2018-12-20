@@ -1,18 +1,20 @@
 package org.tomislavgazica.popularmovies.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
+import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(foreignKeys = @ForeignKey(entity = Movie.class, parentColumns = "id", childColumns = "movieId", onDelete = CASCADE))
+@Entity(foreignKeys = @ForeignKey(entity = Movie.class, parentColumns = "id", childColumns = "movieId", onDelete = CASCADE), indices = {@Index("movieId")})
 public class Trailer {
 
     @PrimaryKey
@@ -56,7 +58,7 @@ public class Trailer {
     public Trailer() {
     }
 
-    public Trailer(String id, String iso_639_1, String iso_3166_1, String key, String name, String site, String size, String type, int movieId) {
+    public Trailer(@NonNull String id, String iso_639_1, String iso_3166_1, String key, String name, String site, String size, String type, int movieId) {
         this.id = id;
         this.iso_639_1 = iso_639_1;
         this.iso_3166_1 = iso_3166_1;

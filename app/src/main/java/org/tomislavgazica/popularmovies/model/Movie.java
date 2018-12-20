@@ -1,15 +1,13 @@
 package org.tomislavgazica.popularmovies.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
 
 @Entity(tableName = "favoriteMovies")
 public class Movie {
@@ -18,7 +16,6 @@ public class Movie {
     @SerializedName("id")
     @Expose
     @NonNull
-    @ColumnInfo(name = "id")
     private int id;
 
     @SerializedName("poster_path")

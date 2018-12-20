@@ -2,6 +2,10 @@ package org.tomislavgazica.popularmovies.ui.movieDetails;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -11,7 +15,6 @@ import com.bumptech.glide.Glide;
 
 import org.tomislavgazica.popularmovies.App;
 import org.tomislavgazica.popularmovies.R;
-import org.tomislavgazica.popularmovies.database.FavoriteMoviesDatabase;
 import org.tomislavgazica.popularmovies.model.Movie;
 import org.tomislavgazica.popularmovies.model.Review;
 import org.tomislavgazica.popularmovies.model.Trailer;
@@ -19,15 +22,10 @@ import org.tomislavgazica.popularmovies.presentation.DetailPresenter;
 import org.tomislavgazica.popularmovies.ui.movieDetails.adapter.ReviewsAdapter;
 import org.tomislavgazica.popularmovies.ui.movieDetails.adapter.TrailersAdapter;
 import org.tomislavgazica.popularmovies.ui.movieList.MainActivity;
-import org.tomislavgazica.popularmovies.util.AppExecutors;
 import org.tomislavgazica.popularmovies.util.Constants;
 
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -56,16 +54,12 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
     private DetailsContract.Presenter presenter;
     private TrailersAdapter trailersAdapter;
     private ReviewsAdapter reviewsAdapter;
-    private FavoriteMoviesDatabase database;
-    private boolean isMovieFavorite = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
-
-        database = FavoriteMoviesDatabase.getInstance(getApplicationContext());
 
         trailersAdapter = new TrailersAdapter();
         reviewsAdapter = new ReviewsAdapter();
