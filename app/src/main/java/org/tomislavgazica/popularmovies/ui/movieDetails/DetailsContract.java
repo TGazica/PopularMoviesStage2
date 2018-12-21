@@ -34,7 +34,7 @@ public interface DetailsContract {
 
         void onReviewsFromDatabaseCalled(int id, Context context);
 
-        void onMovieFavoriteStateChanged();
+        void onMovieFavoriteStateChanged(int movieId);
 
     }
 

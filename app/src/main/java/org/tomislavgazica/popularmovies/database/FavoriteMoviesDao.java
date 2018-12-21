@@ -24,7 +24,7 @@ public interface FavoriteMoviesDao {
     Movie loadMovieFromDatabase(int movieId);
 
     @Insert
-    void insetFavoriteMovie(Movie movie);
+    void insertFavoriteMovie(Movie movie);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateFavoriteMovie(Movie movie);

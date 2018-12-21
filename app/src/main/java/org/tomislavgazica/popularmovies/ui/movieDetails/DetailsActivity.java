@@ -54,6 +54,7 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
     private DetailsContract.Presenter presenter;
     private TrailersAdapter trailersAdapter;
     private ReviewsAdapter reviewsAdapter;
+    private int movieId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,12 +85,13 @@ public class DetailsActivity extends AppCompatActivity implements DetailsContrac
 
     @OnClick(R.id.rb_detail_movie_favorite)
     public void onFavoriteClicked() {
-        presenter.onMovieFavoriteStateChanged();
         rbDetailMovieFavorite.setChecked(!rbDetailMovieFavorite.isChecked());
+        presenter.onMovieFavoriteStateChanged(movieId);
     }
 
     @Override
     public void setMovieData(Movie movie, boolean isMovieFavorite) {
+        movieId = movie.getId();
         Glide.with(getApplicationContext())
                 .load(Constants.IMAGE_URL + Constants.IMAGE_SIZE + movie.getPoster_path())
                 .into(ivDetailMoviePoster);

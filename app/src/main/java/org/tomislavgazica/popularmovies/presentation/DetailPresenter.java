@@ -9,6 +9,7 @@ import org.tomislavgazica.popularmovies.model.Movie;
 import org.tomislavgazica.popularmovies.model.ReviewsResponse;
 import org.tomislavgazica.popularmovies.model.TrailersResponse;
 import org.tomislavgazica.popularmovies.ui.movieDetails.DetailsContract;
+import org.tomislavgazica.popularmovies.util.AppExecutors;
 import org.tomislavgazica.popularmovies.util.NetworkUtil;
 
 import retrofit2.Call;
@@ -23,11 +24,13 @@ public class DetailPresenter implements DetailsContract.Presenter {
     private FavoriteMoviesDatabase database;
     private Movie movie;
     private boolean isMovieFavorite = false;
+    private AppExecutors appExecutors;
 
     public DetailPresenter(ApiInteractor apiInteractor, Context context) {
         this.apiInteractor = apiInteractor;
         apyKey = BuildConfig.API_KEY;
         database = FavoriteMoviesDatabase.getInstance(context);
+        appExecutors = AppExecutors.getInstance();
     }
 
     @Override
@@ -37,10 +40,24 @@ public class DetailPresenter implements DetailsContract.Presenter {
 
     @Override
     public void onMovieDataFromDatabaseCalled(int id, Context context) {
-        if (!getMovieFromDatabaseFavorites(id) && NetworkUtil.isThereInternetConnection(context)) {
-            apiInteractor.getMovieDetailsFromDatabase(getMovieCallback(), id, apyKey);
+        getMovieFromDatabaseFavorites(id);
+    }
+
+    private void getMovieFromDatabaseFavorites(final int movieId) {
+        appExecutors.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                movie = database.getFavoriteMoviesDao().loadMovieFromDatabase(movieId);
+                isMovieFavorite(movie, movieId);
+            }
+        });
+    }
+
+    private void isMovieFavorite(Movie movie, int movieId) {
+        if (movie != null) {
+            view.setMovieData(movie, isMovieFavorite);
         } else {
-            view.onNoInternetAccess();
+            apiInteractor.getMovieDetailsFromDatabase(getMovieCallback(), movieId, apyKey);
         }
     }
 
@@ -111,24 +128,18 @@ public class DetailPresenter implements DetailsContract.Presenter {
         };
     }
 
-    private boolean getMovieFromDatabaseFavorites(int movieId) {
-        movie = database.getFavoriteMoviesDao().loadMovieFromDatabase(movieId);
-        if (movie != null) {
-            isMovieFavorite = true;
-            view.setMovieData(movie, isMovieFavorite);
-        } else {
-            isMovieFavorite = false;
-
-        }
-        return isMovieFavorite;
-    }
-
     @Override
-    public void onMovieFavoriteStateChanged() {
-        if (isMovieFavorite){
-            database.getFavoriteMoviesDao().deleteFavoriteMovie(movie);
-        }else {
-            database.getFavoriteMoviesDao().insetFavoriteMovie(movie);
-        }
+    public void onMovieFavoriteStateChanged(final int movieId) {
+        appExecutors.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                Movie movieFromDb = database.getFavoriteMoviesDao().loadMovieFromDatabase(movieId);
+                if (movieFromDb != null){
+                    database.getFavoriteMoviesDao().deleteFavoriteMovie(movieFromDb);
+                }else {
+                    database.getFavoriteMoviesDao().insertFavoriteMovie(movie);
+                }
+            }
+        });
     }
 }
