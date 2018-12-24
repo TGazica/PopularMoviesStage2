@@ -1,6 +1,7 @@
 package org.tomislavgazica.popularmovies.ui.movieDetails;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 
 import org.tomislavgazica.popularmovies.model.Movie;
 import org.tomislavgazica.popularmovies.model.Review;
@@ -28,13 +29,9 @@ public interface DetailsContract {
 
         void setView(DetailsContract.View view);
 
-        void onMovieDataFromDatabaseCalled(int id, Context context);
+        void onMovieDataFromDatabaseCalled(int id, Context context, AppCompatActivity appCompatActivity);
 
-        void onTrailersFormDatabaseCalled(int id, Context context);
-
-        void onReviewsFromDatabaseCalled(int id, Context context);
-
-        void onMovieFavoriteStateChanged(int movieId);
+        void onMovieFavoriteStateChanged(AppCompatActivity appCompatActivity);
 
     }
 

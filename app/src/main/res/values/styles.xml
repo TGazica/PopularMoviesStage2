@@ -6,11 +6,10 @@
         <item name="colorPrimary">#ea000000</item>
         <item name="colorPrimaryDark">#000000</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="radioButtonStyle">@style/RadioButton</item>
     </style>
 
-    <style name="RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
-        <item name="android:button">@drawable/custom_radio_button</item>
+    <style name="CheckBox" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/custom_check_box</item>
     </style>
 
 </resources>

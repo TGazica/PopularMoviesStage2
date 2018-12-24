@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import org.tomislavgazica.popularmovies.R;
 import org.tomislavgazica.popularmovies.model.Trailer;
+import org.tomislavgazica.popularmovies.ui.movieDetails.listener.OnTrailerClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +21,12 @@ public class TrailersViewHolder extends RecyclerView.ViewHolder {
     TextView tvTrailerItemTrailerNumber;
     @BindView(R.id.iv_item_trailer_share)
     ImageView ivItemTrailerShare;
+
+    private OnTrailerClickListener listener;
+
+    public void setListener(OnTrailerClickListener listener) {
+        this.listener = listener;
+    }
 
     public TrailersViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -43,12 +50,14 @@ public class TrailersViewHolder extends RecyclerView.ViewHolder {
 
     @OnClick
     public void onTrailerClicked(){
-
+        Trailer trailer = (Trailer) itemView.getTag();
+        listener.onTrailerClicked(trailer);
     }
 
     @OnClick(R.id.iv_item_trailer_share)
     public void onShareClicked(){
-
+        Trailer trailer = (Trailer) itemView.getTag();
+        listener.onTrailerShareClicked(trailer);
     }
 
 }

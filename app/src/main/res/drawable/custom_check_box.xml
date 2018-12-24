@@ -3,13 +3,13 @@
     <item android:state_checked="true" android:state_window_focused="false"
         android:drawable="@drawable/ic_baseline_star" />
     <item android:state_checked="false" android:state_window_focused="false"
-        android:drawable="@drawable/ic_baseline_star" />
+        android:drawable="@drawable/ic_baseline_star_border" />
     <item android:state_checked="true" android:state_pressed="true"
         android:drawable="@drawable/ic_baseline_star" />
     <item android:state_checked="false" android:state_pressed="true"
         android:drawable="@drawable/ic_baseline_star_border" />
     <item android:state_checked="true" android:state_focused="true"
-        android:drawable="@drawable/ic_baseline_star_border" />
+        android:drawable="@drawable/ic_baseline_star" />
     <item android:state_checked="false" android:state_focused="true"
         android:drawable="@drawable/ic_baseline_star_border" />
 

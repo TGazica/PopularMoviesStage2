@@ -21,8 +21,13 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListViewHolder> 
     private OnMovieClickListener listener;
 
     public void setMovies(List<Movie> movies) {
-        this.movies.clear();
-        this.movies.addAll(movies);
+        if (movies != null) {
+            this.movies.clear();
+            this.movies.addAll(movies);
+        }else {
+            this.movies.clear();
+            this.movies = new ArrayList<>();
+        }
         notifyDataSetChanged();
     }
 

@@ -26,13 +26,14 @@
             android:maxLines="3"
             android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="@id/iv_detail_movie_title_holder"
-            app:layout_constraintEnd_toStartOf="@id/rb_detail_movie_favorite"
+            app:layout_constraintEnd_toStartOf="@id/cb_detail_movie_favorite"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/iv_detail_movie_title_holder"
             app:layout_constraintTop_toTopOf="@id/iv_detail_movie_title_holder" />
 
-        <RadioButton
-            android:id="@+id/rb_detail_movie_favorite"
+        <CheckBox
+            android:id="@+id/cb_detail_movie_favorite"
+            style="@style/CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

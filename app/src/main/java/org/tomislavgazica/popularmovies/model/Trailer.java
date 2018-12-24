@@ -1,26 +1,14 @@
 package org.tomislavgazica.popularmovies.model;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.Index;
-import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import static android.arch.persistence.room.ForeignKey.CASCADE;
-
-
-@Entity(foreignKeys = @ForeignKey(entity = Movie.class, parentColumns = "id", childColumns = "movieId", onDelete = CASCADE), indices = {@Index("movieId")})
 public class Trailer {
 
-    @PrimaryKey
     @SerializedName("id")
     @Expose
-    @NonNull
     private String id;
 
     @SerializedName("iso_639_1")
@@ -51,14 +39,10 @@ public class Trailer {
     @Expose
     private String type;
 
-    @ColumnInfo(name = "movieId")
-    private int movieId;
-
-    @Ignore
     public Trailer() {
     }
 
-    public Trailer(@NonNull String id, String iso_639_1, String iso_3166_1, String key, String name, String site, String size, String type, int movieId) {
+    public Trailer(@NonNull String id, String iso_639_1, String iso_3166_1, String key, String name, String site, String size, String type) {
         this.id = id;
         this.iso_639_1 = iso_639_1;
         this.iso_3166_1 = iso_3166_1;
@@ -67,7 +51,6 @@ public class Trailer {
         this.site = site;
         this.size = size;
         this.type = type;
-        this.movieId = movieId;
     }
 
     public String getId() {
@@ -132,13 +115,5 @@ public class Trailer {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public int getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
     }
 }

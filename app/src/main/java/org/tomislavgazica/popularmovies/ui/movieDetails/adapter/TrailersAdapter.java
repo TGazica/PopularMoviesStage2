@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import org.tomislavgazica.popularmovies.R;
 import org.tomislavgazica.popularmovies.model.Trailer;
+import org.tomislavgazica.popularmovies.ui.movieDetails.listener.OnTrailerClickListener;
 import org.tomislavgazica.popularmovies.ui.movieDetails.viewHolder.TrailersViewHolder;
 
 import java.util.ArrayList;
@@ -17,6 +18,11 @@ import java.util.List;
 public class TrailersAdapter extends RecyclerView.Adapter<TrailersViewHolder> {
 
     private List<Trailer> trailers = new ArrayList<>();
+    private OnTrailerClickListener listener;
+
+    public TrailersAdapter(OnTrailerClickListener listener) {
+        this.listener = listener;
+    }
 
     public void setTrailers(List<Trailer> trailers) {
         this.trailers = trailers;
@@ -34,6 +40,7 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersViewHolder> {
     public void onBindViewHolder(@NonNull TrailersViewHolder trailersViewHolder, int i) {
         Trailer trailer = trailers.get(i);
         trailersViewHolder.setTrailer(i, trailer);
+        trailersViewHolder.setListener(listener);
     }
 
     @Override

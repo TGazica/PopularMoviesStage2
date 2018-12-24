@@ -11,7 +11,7 @@ import org.tomislavgazica.popularmovies.model.Trailer;
 
 
 
-@Database(entities = {Movie.class, Trailer.class, Review.class}, version = 1, exportSchema = false)
+@Database(entities = {Movie.class}, version = 1, exportSchema = false)
 public abstract class FavoriteMoviesDatabase extends RoomDatabase {
 
     private static final Object LOCK = new Object();
@@ -28,7 +28,5 @@ public abstract class FavoriteMoviesDatabase extends RoomDatabase {
     }
 
     public abstract FavoriteMoviesDao getFavoriteMoviesDao();
-    public abstract TrailersDao getTrailersDao();
-    public abstract ReviewsDao getReviewsDao();
 
 }

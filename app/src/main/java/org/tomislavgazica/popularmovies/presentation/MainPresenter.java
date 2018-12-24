@@ -1,13 +1,20 @@
 package org.tomislavgazica.popularmovies.presentation;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 
 import org.tomislavgazica.popularmovies.BuildConfig;
+import org.tomislavgazica.popularmovies.database.FavoriteMoviesViewModel;
 import org.tomislavgazica.popularmovies.interactor.ApiInteractor;
+import org.tomislavgazica.popularmovies.model.Movie;
 import org.tomislavgazica.popularmovies.model.MoviesResponse;
 import org.tomislavgazica.popularmovies.ui.movieList.MainContract;
-import org.tomislavgazica.popularmovies.util.Constants;
 import org.tomislavgazica.popularmovies.util.NetworkUtil;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,5 +68,17 @@ public class MainPresenter implements MainContract.Presenter {
                 view.onResponseFailure();
             }
         };
+    }
+
+    @Override
+    public void onFavoriteMoviesRequested(AppCompatActivity appCompatActivity) {
+        FavoriteMoviesViewModel favoriteMoviesViewModel = ViewModelProviders.of(appCompatActivity).get(FavoriteMoviesViewModel.class);
+        favoriteMoviesViewModel.getMovies().observe(appCompatActivity, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(@Nullable List<Movie> movies) {
+                view.setMovieList(movies);
+            }
+        });
+
     }
 }
